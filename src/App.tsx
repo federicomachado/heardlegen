@@ -130,6 +130,7 @@ function App() {
           audioRef.current.pause();
           setIsPlaying(false);
           setCurrentTime(0);
+          setProgressTime(0); // Resetear la barra de progreso
         }
       }, playbackDurations[playbackStage] * 1000);
 
@@ -153,6 +154,8 @@ function App() {
           if (audioRef.current) {
             audioRef.current.pause();
             setIsPlaying(false);
+            setCurrentTime(0);
+            setProgressTime(0); // Resetear la barra de progreso
           }
         }, remainingTime);
 
@@ -276,16 +279,30 @@ function App() {
     let rafId: number;
     const animate = () => {
       if (audioRef.current && isPlaying) {
-        setProgressTime(audioRef.current.currentTime - startTimeRef.current);
+        const currentProgress = audioRef.current.currentTime - startTimeRef.current;
+        if (currentProgress >= playbackDurations[playbackStage]) {
+          setProgressTime(0);
+          setCurrentTime(0);
+          setIsPlaying(false);
+          if (audioRef.current) {
+            audioRef.current.pause();
+          }
+          return;
+        }
+        setProgressTime(currentProgress);
         rafId = requestAnimationFrame(animate);
       }
     };
     if (isPlaying) {
       rafId = requestAnimationFrame(animate);
     } else {
-      setProgressTime(currentTime); // sincroniza al pausar
+      setProgressTime(0);
     }
-    return () => rafId && cancelAnimationFrame(rafId);
+    return () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+    };
   }, [isPlaying, currentSong, playbackStage]);
 
   return (
