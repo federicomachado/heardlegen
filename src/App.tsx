@@ -16,6 +16,8 @@ function App() {
   const [volume, setVolume] = useState(0.5);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
+  const [displayTime, setDisplayTime] = useState(0);
+  const [progressTime, setProgressTime] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const startTimeRef = useRef<number>(0);
@@ -32,38 +34,42 @@ function App() {
     }
   }, [volume]);
 
-  // Smooth progress bar animation
+  // Progress bar update using audio events
   useEffect(() => {
-    let lastTimestamp = 0;
+    if (!audioRef.current) return;
+
+    const audio = audioRef.current;
     
-    const updateProgress = (timestamp: number) => {
-      if (!lastTimestamp) lastTimestamp = timestamp;
-      const deltaTime = timestamp - lastTimestamp;
+    const handleTimeUpdate = () => {
+      if (!isPlaying) return;
+      const currentTime = audio.currentTime - startTimeRef.current;
+      setCurrentTime(currentTime);
       
-      if (audioRef.current && isPlaying) {
-        const elapsed = audioRef.current.currentTime - startTimeRef.current;
-        // Interpolate the time update for smoother animation
-        const smoothElapsed = lastTimeRef.current + (elapsed - lastTimeRef.current) * Math.min(1, deltaTime / 16.67);
-        setCurrentTime(smoothElapsed);
-        lastTimeRef.current = smoothElapsed;
-        lastTimestamp = timestamp;
-        animationFrameRef.current = requestAnimationFrame(updateProgress);
+      if (currentTime >= playbackDurations[playbackStage]) {
+        audio.pause();
+        setIsPlaying(false);
+        setCurrentTime(0);
       }
     };
 
-    if (isPlaying) {
-      lastTimeRef.current = currentTime;
-      animationFrameRef.current = requestAnimationFrame(updateProgress);
-    } else if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current);
-    }
+    const handlePlay = () => {
+      setIsPlaying(true);
+    };
+
+    const handlePause = () => {
+      setIsPlaying(false);
+    };
+
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+    audio.addEventListener('play', handlePlay);
+    audio.addEventListener('pause', handlePause);
 
     return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
+      audio.removeEventListener('play', handlePlay);
+      audio.removeEventListener('pause', handlePause);
     };
-  }, [isPlaying]);
+  }, [isPlaying, playbackStage]);
 
   // Load random song and set random start time when game or soundtracks change
   useEffect(() => {
@@ -107,15 +113,12 @@ function App() {
   const playSong = () => {
     if (currentSong && audioRef.current) {
       const audio = audioRef.current;
-      lastTimeRef.current = 0;
       
       // Reset to the stored start time
       audio.currentTime = startTimeRef.current;
       setCurrentTime(0);
       audio.volume = volume;
-      audio.play();
-      setIsPlaying(true);
-
+      
       // Clear previous timeout
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -127,9 +130,10 @@ function App() {
           audioRef.current.pause();
           setIsPlaying(false);
           setCurrentTime(0);
-          lastTimeRef.current = 0;
         }
       }, playbackDurations[playbackStage] * 1000);
+
+      audio.play();
     }
   };
 
@@ -141,7 +145,6 @@ function App() {
           clearTimeout(timeoutRef.current);
         }
       } else {
-        audioRef.current.play();
         // Recalculate remaining time
         const elapsedTime = currentTime;
         const remainingTime = (playbackDurations[playbackStage] * 1000) - (elapsedTime * 1000);
@@ -152,8 +155,9 @@ function App() {
             setIsPlaying(false);
           }
         }, remainingTime);
+
+        audioRef.current.play();
       }
-      setIsPlaying(!isPlaying);
     }
   };
 
@@ -267,6 +271,22 @@ function App() {
       }
     });
   };
+
+  useEffect(() => {
+    let rafId: number;
+    const animate = () => {
+      if (audioRef.current && isPlaying) {
+        setProgressTime(audioRef.current.currentTime - startTimeRef.current);
+        rafId = requestAnimationFrame(animate);
+      }
+    };
+    if (isPlaying) {
+      rafId = requestAnimationFrame(animate);
+    } else {
+      setProgressTime(currentTime); // sincroniza al pausar
+    }
+    return () => rafId && cancelAnimationFrame(rafId);
+  }, [isPlaying, currentSong, playbackStage]);
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-4 sm:p-8">
@@ -408,9 +428,9 @@ function App() {
               <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
                 <div 
                   className="h-full bg-blue-500 transform-gpu"
-                  style={{ 
-                    width: `${(currentTime / playbackDurations[playbackStage]) * 100}%`,
-                    transition: 'width 50ms linear'
+                  style={{
+                    transform: `scaleX(${Math.max(0, Math.min(1, progressTime / playbackDurations[playbackStage]))})`,
+                    transformOrigin: 'left'
                   }}
                 />
               </div>
