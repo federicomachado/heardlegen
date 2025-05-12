@@ -35,8 +35,7 @@ export const songs: Song[] = [
   {id: 28, title: "You're in ruins (St.Capitolina Abbey; Jawaii)", audioUrl: "/BGM2/28.mp3"},
   {id: 29, title: "Be Nice 'n Easy (Undersea Tunnel 1~3F)", audioUrl: "/BGM2/29.mp3"},
   {id: 30, title: "One Step Closer (Training Ground)", audioUrl: "/BGM2/30.mp3"},
-  {id: 31, title: "Brassy Road (Mt.Mjolnir 1,6,7,9)", audioUrl: "/BGM2/31.mp3"},
-  {id: 32, title: "— (—)", audioUrl: "/BGM2/32.mp3"},
+  {id: 31, title: "Brassy Road (Mt.Mjolnir 1,6,7,9)", audioUrl: "/BGM2/31.mp3"},  
   {id: 33, title: "Yuna Song (Mt.Mjolnir 2~4,8)", audioUrl: "/BGM2/33.mp3"},
   {id: 34, title: "Pampas Upas (Mt.Mjolnir 5,10~12)", audioUrl: "/BGM2/34.mp3"},
   {id: 35, title: "TeMPoison (Geffen Field 2,3,10; Orc village)", audioUrl: "/BGM2/35.mp3"},
@@ -179,6 +178,5 @@ export const songs: Song[] = [
   {id: 172, title: "Macaroni Express (Rock Ridge Field)", audioUrl: "/BGM2/172.mp3"},
   {id: 174, title: "Ethnically Diverse (?)", audioUrl: "/BGM2/174.mp3"},
   {id: 175, title: "Cat on Bullet (?)", audioUrl: "/BGM2/175.mp3"},
-  {id: 176, title: "Tears of Deviant (?)", audioUrl: "/BGM2/176.mp3"},
-  {id: 997, title: "Silence (Horror Toy Factory)", audioUrl: "/BGM2/997.mp3"},
+  {id: 176, title: "Tears of Deviant (?)", audioUrl: "/BGM2/176.mp3"}  
 ]; 
