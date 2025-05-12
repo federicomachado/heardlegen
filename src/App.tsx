@@ -11,15 +11,24 @@ function App() {
   const [playbackStage, setPlaybackStage] = useState(0);
   const [suggestions, setSuggestions] = useState<Song[]>([]);
   const [wrongGuesses, setWrongGuesses] = useState<string[]>([]);
+  const [volume, setVolume] = useState(0.5); // Default volume at 50%
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const playbackDurations = [1, 2, 5, 10, 15];
   const MAX_WRONG_GUESSES = 5;
 
+  // Update volume when it changes
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, [volume]);
+
   const playSong = () => {
     if (currentSong && audioRef.current) {
       audioRef.current.src = currentSong.audioUrl;
       audioRef.current.currentTime = 0;
+      audioRef.current.volume = volume;
       audioRef.current.play();
       
       // Stop after the current stage's duration
@@ -46,6 +55,8 @@ function App() {
         setRevealed(true);
       }
     }
+    setGuess(''); // Clear the search field
+    setSuggestions([]); // Clear suggestions
   };
 
   const nextSong = () => {
@@ -73,8 +84,7 @@ function App() {
     
     if (value.length > 0) {
       const filtered = songs.filter(song => 
-        song.title.toLowerCase().includes(value.toLowerCase()) ||
-        song.artist.toLowerCase().includes(value.toLowerCase())
+        song.title.toLowerCase().includes(value.toLowerCase())        
       );
       setSuggestions(filtered.slice(0, 5)); // Show top 5 matches
     } else {
@@ -94,43 +104,109 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-900 text-white p-8">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-8">Heardlegen</h1>
+        <h1 className="text-4xl font-bold text-center mb-2">Ragnarok Heardle</h1>
+        <p className="text-gray-400 text-center mb-8">By Lazerth</p>
         
         <div className="bg-gray-800 rounded-lg p-6 mb-6">
           <div className="flex justify-between items-center mb-4">
             <span className="text-xl">Score: {score}</span>
-            <div className="flex gap-2">
-              <button
-                onClick={playSong}
-                className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded"
-                disabled={revealed}
-              >
-                Play Song ({playbackDurations[playbackStage]}s)
-              </button>
-              <button
-                onClick={handleSkip}
-                className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded"
-                disabled={revealed || playbackStage >= playbackDurations.length - 1}
-              >
-                Add Time
-              </button>
+            <div className="flex items-center gap-4">
+              {/* Volume Control */}
+              <div className="flex items-center gap-2">
+                <svg 
+                  className="w-5 h-5 text-gray-400" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m2.828-9.9a9 9 0 012.728-2.728" 
+                  />
+                </svg>
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={volume}
+                  onChange={(e) => setVolume(parseFloat(e.target.value))}
+                  className="w-24 accent-blue-500"
+                />
+                <span className="text-sm text-gray-400 w-8">
+                  {Math.round(volume * 100)}%
+                </span>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={playSong}
+                  className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded"
+                  disabled={revealed}
+                >
+                  Play Song ({playbackDurations[playbackStage]}s)
+                </button>
+                <button
+                  onClick={handleSkip}
+                  className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded"
+                  disabled={revealed || playbackStage >= playbackDurations.length - 1}
+                >
+                  Add Time
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Progress Bars */}
+          <div className="mb-6 space-y-4">
+            {/* Time Progress */}
+            <div>
+              <div className="flex justify-between text-sm text-gray-400 mb-1">
+                <span>Time Available</span>
+                <span>{playbackDurations[playbackStage]}s</span>
+              </div>
+              <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-blue-500 transition-all duration-300"
+                  style={{ width: `${((playbackStage + 1) / playbackDurations.length) * 100}%` }}
+                />
+              </div>
+              <div className="flex justify-between text-xs text-gray-500 mt-1">
+                {playbackDurations.map((duration, index) => (
+                  <span key={index}>{duration}s</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Tries Progress */}
+            <div>
+              <div className="flex justify-between text-sm text-gray-400 mb-1">
+                <span>Tries Remaining</span>
+                <span>{MAX_WRONG_GUESSES - wrongGuesses.length}</span>
+              </div>
+              <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-red-500 transition-all duration-300"
+                  style={{ width: `${(wrongGuesses.length / MAX_WRONG_GUESSES) * 100}%` }}
+                />
+              </div>
+              <div className="flex justify-between text-xs text-gray-500 mt-1">
+                {Array.from({ length: MAX_WRONG_GUESSES }).map((_, index) => (
+                  <span key={index}>Try {index + 1}</span>
+                ))}
+              </div>
             </div>
           </div>
 
           <div className="mb-4">
             <div className="flex gap-2 flex-wrap">
-              {wrongGuesses.map((wrongGuess, index) => (
-                <div key={index} className="bg-red-900 px-3 py-1 rounded-full flex items-center gap-1">
-                  <span>{wrongGuess}</span>
-                  <span className="text-red-400">×</span>
-                </div>
+              {wrongGuesses.map((guess, index) => (
+                <span key={index} className="bg-red-900 text-red-200 px-2 py-1 rounded text-sm">
+                  {guess}
+                </span>
               ))}
             </div>
-            {wrongGuesses.length > 0 && (
-              <p className="text-sm text-gray-400 mt-2">
-                Wrong guesses: {wrongGuesses.length}/{MAX_WRONG_GUESSES}
-              </p>
-            )}
           </div>
 
           <form onSubmit={handleGuess} className="mb-4 relative">
@@ -150,30 +226,32 @@ function App() {
                     className="p-2 hover:bg-gray-600 cursor-pointer"
                     onClick={() => selectSuggestion(song)}
                   >
-                    {song.title} - {song.artist}
+                    {song.title}
                   </div>
                 ))}
               </div>
             )}
             <button
               type="submit"
-              className="w-full mt-2 bg-green-500 hover:bg-green-600 px-4 py-2 rounded"
-              disabled={revealed}
+              className="w-full mt-2 bg-green-500 hover:bg-green-600 px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={revealed || !guess.trim()}
             >
               Guess
             </button>
           </form>
 
           {revealed && currentSong && (
-            <div className="text-center">
-              <p className="text-xl mb-2">Correct answer: {currentSong.title}</p>
-              <p className="text-gray-400 mb-4">by {currentSong.artist}</p>
-              <button
-                onClick={nextSong}
-                className="bg-purple-500 hover:bg-purple-600 px-4 py-2 rounded"
-              >
-                Next Song
-              </button>
+            <div className="mb-6">
+              <div className="bg-gray-700 p-4 rounded-lg">
+                <h2 className="text-xl font-bold mb-2">The song was:</h2>
+                <p className="text-lg">{currentSong.title}</p>
+                <button
+                  onClick={nextSong}
+                  className="mt-4 bg-green-500 hover:bg-green-600 px-6 py-2 rounded-lg font-semibold transition-colors"
+                >
+                  Next Song
+                </button>
+              </div>
             </div>
           )}
         </div>

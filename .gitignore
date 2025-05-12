@@ -1,3 +1,6 @@
 *.mp3
 /node_modules
 /venv
+ffmpeg.exe
+ffplay.exe
+ffprobe.exe
