@@ -1,0 +1,1772 @@
+[
+  {
+    "filename": "01.mp3",
+    "duration": 74.6707,
+    "bitrate": 80000,
+    "sample_rate": 22050,
+    "channels": 2,
+    "title": "Title",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "02.mp3",
+    "duration": 183.0266,
+    "bitrate": 80000,
+    "sample_rate": 22050,
+    "channels": 2,
+    "title": "Gambler of highway  ",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "03.mp3",
+    "duration": 150.4781,
+    "bitrate": 80000,
+    "sample_rate": 22050,
+    "channels": 2,
+    "title": "Peaceful Forest",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "04.mp3",
+    "duration": 166.8307,
+    "bitrate": 80000,
+    "sample_rate": 22050,
+    "channels": 2,
+    "title": "I miss you",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "05.mp3",
+    "duration": 114.6381,
+    "bitrate": 80000,
+    "sample_rate": 22050,
+    "channels": 2,
+    "title": "Tread on the ground",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "06.mp3",
+    "duration": 169.443,
+    "bitrate": 80000,
+    "sample_rate": 22050,
+    "channels": 2,
+    "title": "Risk your life",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "07.mp3",
+    "duration": 104.9205,
+    "bitrate": 80000,
+    "sample_rate": 22050,
+    "channels": 2,
+    "title": "Wind of Tragedy",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "08.mp3",
+    "duration": 273.985,
+    "bitrate": 80000,
+    "sample_rate": 22050,
+    "channels": 2,
+    "title": "Theme of Prontera",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "09.mp3",
+    "duration": 79.634,
+    "bitrate": 80000,
+    "sample_rate": 22050,
+    "channels": 2,
+    "title": "Great honor",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "10.mp3",
+    "duration": 96.4568,
+    "bitrate": 80000,
+    "sample_rate": 22050,
+    "channels": 2,
+    "title": "Divine Grace",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "100.mp3",
+    "duration": 152.06941666666665,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Abyss",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "101.mp3",
+    "duration": 127.1225,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "AbSolitude",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "102.mp3",
+    "duration": 187.4915,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Erebos' Prelude",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "103.mp3",
+    "duration": 164.63433333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Invisible Invasion",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "104.mp3",
+    "duration": 154.52491666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "On Your Way Back",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "105.mp3",
+    "duration": 132.05966666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Rose of Sharon",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "106.mp3",
+    "duration": 148.07266666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Sleeping Volcano",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "107.mp3",
+    "duration": 152.95758333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Seven Days Seven Nights",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "108.mp3",
+    "duration": 173.98616666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Angelica",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "109.mp3",
+    "duration": 158.0515,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Alpen Rose",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "11.mp3",
+    "duration": 128.0128,
+    "bitrate": 80000,
+    "sample_rate": 22050,
+    "channels": 2,
+    "title": "Theme of Morroc",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "110.mp3",
+    "duration": 158.20825,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Kingdom Memories",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "111.mp3",
+    "duration": 250.13308333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Good Morning",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "112.mp3",
+    "duration": 189.76416666666665,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Good Night",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "113.mp3",
+    "duration": 253.05883333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Monastery In Disguise",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "114.mp3",
+    "duration": 121.53233333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Theme of Moscovia",
+    "artist": "NEOCYON",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "115.mp3",
+    "duration": 140.3405,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Tale of the East",
+    "artist": "NEOCYON",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "116.mp3",
+    "duration": 122.34208333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Away from Home",
+    "artist": "NEOCYON",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "117.mp3",
+    "duration": 131.22375,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Dream of a Whale",
+    "artist": "NEOCYON",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "118.mp3",
+    "duration": 151.47658333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Taiko's Fury",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "119.mp3",
+    "duration": 152.33066666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Stained Memories",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "12.mp3",
+    "duration": 147.6046,
+    "bitrate": 80000,
+    "sample_rate": 22050,
+    "channels": 2,
+    "title": "Streamside",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "120.mp3",
+    "duration": 156.5625,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Fissure Eruption",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "121.mp3",
+    "duration": 346.05475,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Outer Breath",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "122.mp3",
+    "duration": 192.32416666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Ethical Aspiration",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "123.mp3",
+    "duration": 169.02291666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Into The Arena!",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "124.mp3",
+    "duration": 176.72370833333332,
+    "bitrate": 192000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Stranger Aeons",
+    "artist": "Warrne",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "125.mp3",
+    "duration": 194.02208333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Forbidden Anguish",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "126.mp3",
+    "duration": 147.18458333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "New World Orde",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "127.mp3",
+    "duration": 129.63025,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Mystic Haze",
+    "artist": "Warren",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "128.mp3",
+    "duration": 154.05475,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Splendide Dreams",
+    "artist": "Workspace",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "129.mp3",
+    "duration": 131.87675,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Fireflies Heaven",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "13.mp3",
+    "duration": 180.4144,
+    "bitrate": 80000,
+    "sample_rate": 22050,
+    "channels": 2,
+    "title": "Theme of Geffen",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "130.mp3",
+    "duration": 151.49475,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Dread and Bold",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "131.mp3",
+    "duration": 159.46208333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Daytime in Manuk",
+    "artist": "Workspace",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "132.mp3",
+    "duration": 154.76008333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "March with Irish Whistle",
+    "artist": "Workspace",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "133.mp3",
+    "duration": 187.23025,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Sunny Side of Life",
+    "artist": "Denis Koishi",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "134.mp3",
+    "duration": 192.14125,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Borborema",
+    "artist": "Denis Koishi",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "135.mp3",
+    "duration": 256.14125,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "At Dusk",
+    "artist": "Denis Koishi",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "136.mp3",
+    "duration": 244.1223125,
+    "bitrate": 128000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Emotion Creep",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "137.mp3",
+    "duration": 136.5239375,
+    "bitrate": 128000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Dazzling Snow",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "138.mp3",
+    "duration": 152.7981875,
+    "bitrate": 128000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "TeMPlatonic",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "139.mp3",
+    "duration": 185.898,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Sugar Cane Carnival",
+    "artist": "Take One Media",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "14.mp3",
+    "duration": 142.1189,
+    "bitrate": 80000,
+    "sample_rate": 22050,
+    "channels": 2,
+    "title": "Theme of Payon",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "140.mp3",
+    "duration": 181.0915,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Twilight Heaven",
+    "artist": "Take One Media",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "141.mp3",
+    "duration": 159.25308333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Tricky Cheeky",
+    "artist": "Take One Media",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "142.mp3",
+    "duration": 155.62208333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Arrival",
+    "artist": "Take One Media",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "143.mp3",
+    "duration": 163.276,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Mother Earth",
+    "artist": "Take One Media",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "144.mp3",
+    "duration": 164.89558333333332,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Silent Voyage",
+    "artist": "Take One Media",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "145.mp3",
+    "duration": 122.78616666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Marshmallow Waltz",
+    "artist": "Take One Media",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "146.mp3",
+    "duration": 128.716,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Diamond Dust",
+    "artist": "Take One Media",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "147.mp3",
+    "duration": 123.62208333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Octopus Scramble",
+    "artist": "Take One Media",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "148.mp3",
+    "duration": 127.48825,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Melt Down!",
+    "artist": "Take One Media",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "149.mp3",
+    "duration": 124.876,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Theme of Port Malaya",
+    "artist": "Sound Dog",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "15.mp3",
+    "duration": 200.2152,
+    "bitrate": 80000,
+    "sample_rate": 22050,
+    "channels": 2,
+    "title": "Theme of Alberta",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "150.mp3",
+    "duration": 144.1805,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Uncanny Dreams",
+    "artist": "Moon Sung Gon",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "151.mp3",
+    "duration": 144.1805,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Maximum",
+    "artist": "Moon Sung Gon",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "152.mp3",
+    "duration": 101.418,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Voices",
+    "artist": "Moon Sung Gon",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "153.mp3",
+    "duration": 141.67266666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Horizon",
+    "artist": "Sound Dog",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "154.mp3",
+    "duration": 167.66458333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Eclage",
+    "artist": "Sound Dog",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "155.mp3",
+    "duration": 143.449,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Eclage",
+    "artist": "Sound Dog",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "156.mp3",
+    "duration": 144.62458333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Beyond The Grave",
+    "artist": "SoundDOG",
+    "album": "Ragnarok online"
+  },
+  {
+    "filename": "157.mp3",
+    "duration": 122.0025,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Disillusion",
+    "artist": "StyleM",
+    "album": "Ragnarok online"
+  },
+  {
+    "filename": "158.mp3",
+    "duration": 131.43266666666668,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Indelible Scars",
+    "artist": "SoundDOG",
+    "album": "Ragnarok online"
+  },
+  {
+    "filename": "159.mp3",
+    "duration": 122.18533333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Judgement",
+    "artist": "SoundDOG",
+    "album": "Ragnarok online"
+  },
+  {
+    "filename": "16.mp3",
+    "duration": 138.4095,
+    "bitrate": 80000,
+    "sample_rate": 22050,
+    "channels": 2,
+    "title": "Labyrinth",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "160.mp3",
+    "duration": 144.12825,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Jittering Nightmare",
+    "artist": "StyleM",
+    "album": "Ragnarok online"
+  },
+  {
+    "filename": "161.mp3",
+    "duration": 152.233,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Forest of Despiar",
+    "artist": "Moonstruck (Sun-gon, Moon)",
+    "album": "Ragnarok online"
+  },
+  {
+    "filename": "162.mp3",
+    "duration": 194.74883333333332,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Dark Light",
+    "artist": "Moonstruck (Sun-gon, Moon)",
+    "album": "Ragnarok online"
+  },
+  {
+    "filename": "163.mp3",
+    "duration": 158.36258333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Lost souls",
+    "artist": "Moonstruck (Sun-gon, Moon)",
+    "album": "Ragnarok online"
+  },
+  {
+    "filename": "164.mp3",
+    "duration": 137.62633333333332,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "From the Grave",
+    "artist": "Moonstruck (Sun-gon, Moon) ",
+    "album": "Ragnarok online"
+  },
+  {
+    "filename": "165.mp3",
+    "duration": 229.0,
+    "bitrate": 96000,
+    "sample_rate": 32000,
+    "channels": 2,
+    "title": "Apex Fortress",
+    "artist": "Sound TeMP",
+    "album": "Ragnarok online"
+  },
+  {
+    "filename": "166.mp3",
+    "duration": 170.0,
+    "bitrate": 96000,
+    "sample_rate": 32000,
+    "channels": 2,
+    "title": "Brutal Ritual",
+    "artist": "Sound TeMP",
+    "album": "Ragnarok online"
+  },
+  {
+    "filename": "167.mp3",
+    "duration": 154.0,
+    "bitrate": 96000,
+    "sample_rate": 32000,
+    "channels": 2,
+    "title": "Shade of a Shadow",
+    "artist": "Sound TeMP",
+    "album": "Ragnarok online"
+  },
+  {
+    "filename": "168.mp3",
+    "duration": 179.055125,
+    "bitrate": 96000,
+    "sample_rate": 32000,
+    "channels": 2,
+    "title": "How to rescue our dragon",
+    "artist": "MADMAX",
+    "album": "Ragnarok online BGM"
+  },
+  {
+    "filename": "169.mp3",
+    "duration": 91.8260625,
+    "bitrate": 96000,
+    "sample_rate": 32000,
+    "channels": 2,
+    "title": "Little kitty's adventure",
+    "artist": "MADMAX",
+    "album": "Ragnarok online BGM"
+  },
+  {
+    "filename": "17.mp3",
+    "duration": 156.53675,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Tresure Hunter",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "170.mp3",
+    "duration": 98.09846875,
+    "bitrate": 96000,
+    "sample_rate": 32000,
+    "channels": 2,
+    "title": "Welcome to Doram town",
+    "artist": "MADMAX",
+    "album": "Ragnarok online BGM"
+  },
+  {
+    "filename": "171.mp3",
+    "duration": 135.72025,
+    "bitrate": 96000,
+    "sample_rate": 32000,
+    "channels": 2,
+    "title": "Django vs Yojimbo",
+    "artist": "sound TeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "172.mp3",
+    "duration": 137.83266666666665,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Macaroni Express",
+    "artist": "sound TeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "177.mp3",
+    "duration": 95.98458333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "mysterious mansion",
+    "artist": "엘먼(Elmen) & 승모",
+    "album": "Ragnarok Online"
+  },
+  {
+    "filename": "178.mp3",
+    "duration": 140.60166666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "behind the silence ",
+    "artist": "엘먼(Elmen) & 승모",
+    "album": "Ragnarok Online"
+  },
+  {
+    "filename": "179.mp3",
+    "duration": 125.6335,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Echoes of Nature",
+    "artist": "엘먼(Elmen)",
+    "album": "Ragnarok Online"
+  },
+  {
+    "filename": "18.mp3",
+    "duration": 224.43166666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Time up!!",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "180.mp3",
+    "duration": 92.32741666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Finding pillow book",
+    "artist": "엘먼(Elmen)",
+    "album": "Ragnarok Online"
+  },
+  {
+    "filename": "181.mp3",
+    "duration": 86.21475,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "limits of darkness",
+    "artist": "엘먼(Elmen)",
+    "album": "Ragnarok Online"
+  },
+  {
+    "filename": "19.mp3",
+    "duration": 202.4695,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Under the ground",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "20.mp3",
+    "duration": 124.79333333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Ancient groover",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "21.mp3",
+    "duration": 101.0575,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Through the tower",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "22.mp3",
+    "duration": 126.74958333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Backattack!!",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "23.mp3",
+    "duration": 203.64325,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Travel",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "24.mp3",
+    "duration": 220.70175,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Desert",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "25.mp3",
+    "duration": 156.01508333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Plateau",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "26.mp3",
+    "duration": 129.59266666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Everlasting Wanderers",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "27.mp3",
+    "duration": 200.33066666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Dreamer's Dream",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "28.mp3",
+    "duration": 146.70333333333335,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "You're in ruins",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "29.mp3",
+    "duration": 146.23383333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Be Nice 'n Easy",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "30.mp3",
+    "duration": 179.777,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "One Step Closer",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "31.mp3",
+    "duration": 168.822,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Brassy Road",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "33.mp3",
+    "duration": 143.39075,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Yuna Song",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "34.mp3",
+    "duration": 155.44125,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Pampas Upas",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "35.mp3",
+    "duration": 188.01933333333332,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "TeMPoison",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "36.mp3",
+    "duration": 115.09033333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Nano East",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "37.mp3",
+    "duration": 143.83416666666668,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "TeMPorsche",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "38.mp3",
+    "duration": 145.68608333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Hamatan",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "39.mp3",
+    "duration": 225.475,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Theme of Al de Baran",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "40.mp3",
+    "duration": 150.53758333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Fear...",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "41.mp3",
+    "duration": 155.49341666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Rag All Night Long",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "42.mp3",
+    "duration": 183.45475,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Curse'n Pain",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "43.mp3",
+    "duration": 140.41725,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Morning Gloomy",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "44.mp3",
+    "duration": 130.76641666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "TeMP it Up",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "45.mp3",
+    "duration": 142.0605,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Don't Piss me Off",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "46.mp3",
+    "duration": 131.02725,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "An Ant-lion's Pit",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "47.mp3",
+    "duration": 140.652,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Welcome Mr. Hwang",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "48.mp3",
+    "duration": 158.91033333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Help Yourself",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "49.mp3",
+    "duration": 150.09416666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Watery Grave",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "50.mp3",
+    "duration": 138.43491666666668,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Out of Curiosity",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "51.mp3",
+    "duration": 132.87916666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Believe in myself",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "52.mp3",
+    "duration": 103.69191666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Ready~",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "53.mp3",
+    "duration": 129.59266666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "White Christmas",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "54.mp3",
+    "duration": 129.25358333333332,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Come on my deer!!",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "55.mp3",
+    "duration": 120.51566666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Welcome, my lord",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "56.mp3",
+    "duration": 122.00241666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Silver Bell",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "57.mp3",
+    "duration": 124.27166666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Don't cry, baby",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "58.mp3",
+    "duration": 126.35833333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Jingle Bell on Ragnarok",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "59.mp3",
+    "duration": 228.68325,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Theme of Lutie / Snow In My He",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "60.mp3",
+    "duration": 117.56825,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Aeon",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "61.mp3",
+    "duration": 138.77308333333335,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Zingaro",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "62.mp3",
+    "duration": 145.39916666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "High Roller Coaster",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "63.mp3",
+    "duration": 172.07925,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Mucho Gusto",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "64.mp3",
+    "duration": 147.04241666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "One Fine Day",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "65.mp3",
+    "duration": 179.33358333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Into the Abyss",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "66.mp3",
+    "duration": 165.13066666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Wanna Be Free!!",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "67.mp3",
+    "duration": 138.22625,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "TeMPotato",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "68.mp3",
+    "duration": 113.62966666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Jazzy Funky Sweety",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "69.mp3",
+    "duration": 164.74666666666667,
+    "bitrate": 96000,
+    "sample_rate": 32000,
+    "channels": 2,
+    "title": "Retro Metro",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "70.mp3",
+    "duration": 136.896,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Theme of Juno",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "71.mp3",
+    "duration": 124.61075,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Antique Cowboy",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "72.mp3",
+    "duration": 140.00083333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Big Guys Love This",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "73.mp3",
+    "duration": 123.75266666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Higher than the sun",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "74.mp3",
+    "duration": 133.5225,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Not so far away",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "75.mp3",
+    "duration": 157.11108333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Come, and Get it!",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "76.mp3",
+    "duration": 157.71191666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Purity of your smile",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "77.mp3",
+    "duration": 146.47925,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Can't go home again, baby",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "78.mp3",
+    "duration": 127.56658333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "adios",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "79.mp3",
+    "duration": 148.96083333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "The Great",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "80.mp3",
+    "duration": 120.98375,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Jumping Dragon",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "81.mp3",
+    "duration": 161.73475,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Thai Orchid",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "82.mp3",
+    "duration": 136.91841666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Muay Thai King",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "83.mp3",
+    "duration": 127.80166666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Sleepless",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "84.mp3",
+    "duration": 136.2915,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Christmas in the 13th Month",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "85.mp3",
+    "duration": 184.80083333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Dancing Christmas in the 13th Month",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "86.mp3",
+    "duration": 202.56416666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Steel Me",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "87.mp3",
+    "duration": 182.18866666666668,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Ethnica",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "88.mp3",
+    "duration": 199.56008333333332,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Come in Peace",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "89.mp3",
+    "duration": 152.546,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "We have Lee but you don't have",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "90.mp3",
+    "duration": 143.37066666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Noblesse Oblige",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "91.mp3",
+    "duration": 169.70208333333332,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "CheongChoon",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "92.mp3",
+    "duration": 150.476,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Naive Rave",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "93.mp3",
+    "duration": 133.97466666666668,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Latinnova",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "94.mp3",
+    "duration": 140.20983333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Theme of Rael",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "95.mp3",
+    "duration": 108.07925,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Underneath The Temple",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "96.mp3",
+    "duration": 154.91675,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Yetit Petit",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "97.mp3",
+    "duration": 136.37433333333334,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Lastman Dancing",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "98.mp3",
+    "duration": 105.88491666666667,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Top Hoppy",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "99.mp3",
+    "duration": 121.06208333333333,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Uncanny Lake",
+    "artist": "SoundTeMP",
+    "album": "Ragnarok Online BGM"
+  },
+  {
+    "filename": "997.mp3",
+    "duration": 59.961666666666666,
+    "bitrate": 96000,
+    "sample_rate": 44100,
+    "channels": 2,
+    "title": "Silence",
+    "artist": "Gravity",
+    "album": "Ragnarok online BGM"
+  }
+]
