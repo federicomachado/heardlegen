@@ -12,7 +12,9 @@ function App() {
   const [suggestions, setSuggestions] = useState<Song[]>([]);
   const [wrongGuesses, setWrongGuesses] = useState<string[]>([]);
   const [volume, setVolume] = useState(0.5); // Default volume at 50%
+  const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const playbackDurations = [1, 2, 5, 10, 15];
   const MAX_WRONG_GUESSES = 5;
@@ -30,15 +32,49 @@ function App() {
       audioRef.current.currentTime = 0;
       audioRef.current.volume = volume;
       audioRef.current.play();
+      setIsPlaying(true);
       
       // Stop after the current stage's duration
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         if (audioRef.current) {
           audioRef.current.pause();
+          setIsPlaying(false);
         }
       }, playbackDurations[playbackStage] * 1000);
     }
   };
+
+  const togglePause = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+      } else {
+        audioRef.current.play();
+        // Recalculate remaining time
+        const remainingTime = (playbackDurations[playbackStage] * 1000) - 
+          (audioRef.current.currentTime * 1000);
+        timeoutRef.current = setTimeout(() => {
+          if (audioRef.current) {
+            audioRef.current.pause();
+            setIsPlaying(false);
+          }
+        }, remainingTime);
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleGuess = (e: React.FormEvent) => {
     e.preventDefault();
@@ -102,17 +138,17 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-8">
+    <div className="min-h-screen bg-gray-900 text-white p-4 sm:p-8">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-2">Ragnarok Heardle</h1>
+        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-2">Ragnarok Heardle</h1>
         <p className="text-gray-400 text-center mb-8">By Lazerth</p>
         
-        <div className="bg-gray-800 rounded-lg p-6 mb-6">
-          <div className="flex justify-between items-center mb-4">
+        <div className="bg-gray-800 rounded-lg p-4 sm:p-6 mb-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
             <span className="text-xl">Score: {score}</span>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">
               {/* Volume Control */}
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 w-full sm:w-auto">
                 <svg 
                   className="w-5 h-5 text-gray-400" 
                   fill="none" 
@@ -139,21 +175,32 @@ function App() {
                   {Math.round(volume * 100)}%
                 </span>
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                 <button
                   onClick={playSong}
-                  className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded"
-                  disabled={revealed}
+                  className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded w-full sm:w-auto"
+                  disabled={revealed || isPlaying}
                 >
                   Play Song ({playbackDurations[playbackStage]}s)
                 </button>
-                <button
-                  onClick={handleSkip}
-                  className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded"
-                  disabled={revealed || playbackStage >= playbackDurations.length - 1}
-                >
-                  Add Time
-                </button>
+                {isPlaying && (
+                  <button
+                    onClick={togglePause}
+                    className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded w-full sm:w-auto"
+                    disabled={revealed}
+                  >
+                    Pause
+                  </button>
+                )}
+                {wrongGuesses.length < 4 && (
+                  <button
+                    onClick={handleSkip}
+                    className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded w-full sm:w-auto"
+                    disabled={revealed}
+                  >
+                    Add Time
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -219,7 +266,7 @@ function App() {
               disabled={revealed}
             />
             {suggestions.length > 0 && (
-              <div className="absolute w-full bg-gray-700 rounded mt-1 z-10">
+              <div className="absolute w-full bg-gray-700 rounded mt-1 z-10 max-h-60 overflow-y-auto">
                 {suggestions.map((song, index) => (
                   <div
                     key={index}
@@ -244,10 +291,10 @@ function App() {
             <div className="mb-6">
               <div className="bg-gray-700 p-4 rounded-lg">
                 <h2 className="text-xl font-bold mb-2">The song was:</h2>
-                <p className="text-lg">{currentSong.title}</p>
+                <p className="text-lg break-words">{currentSong.title}</p>
                 <button
                   onClick={nextSong}
-                  className="mt-4 bg-green-500 hover:bg-green-600 px-6 py-2 rounded-lg font-semibold transition-colors"
+                  className="mt-4 bg-green-500 hover:bg-green-600 px-6 py-2 rounded-lg font-semibold transition-colors w-full sm:w-auto"
                 >
                   Next Song
                 </button>
