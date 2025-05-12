@@ -4,7 +4,10 @@ import { heardles, HeardleConfig } from './data/heardles';
 import { Song } from './data/songs';
 
 function App() {
-  const [currentHeardle, setCurrentHeardle] = useState<HeardleConfig>(heardles[0]);
+  const [currentHeardle, setCurrentHeardle] = useState<HeardleConfig>(() => {
+    const savedHeardle = localStorage.getItem('currentHeardle');
+    return savedHeardle ? JSON.parse(savedHeardle) : heardles[0];
+  });
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [guess, setGuess] = useState('');
   const [revealed, setRevealed] = useState(false);
@@ -136,11 +139,21 @@ function App() {
   };
 
   const handleHeardleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newHeardle = heardles.find(h => h.id === e.target.value);
-    if (newHeardle) {
-      setCurrentHeardle(newHeardle);
-      setScore(0);
-      nextSong();
+    const selectedHeardle = heardles.find(h => h.id === e.target.value);
+    if (selectedHeardle) {
+      setCurrentHeardle(selectedHeardle);
+      localStorage.setItem('currentHeardle', JSON.stringify(selectedHeardle));
+      // Reset game state when changing Heardle
+      setCurrentSong(null);
+      setWrongGuesses([]);
+      setGuess('');
+      setSuggestions([]);
+      setRevealed(false);
+      setPlaybackStage(0);
+      setIsPlaying(false);
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
     }
   };
 
