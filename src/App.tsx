@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
-import { songs, Song } from './data/songs';
+import { heardles, HeardleConfig } from './data/heardles';
+import { Song } from './data/songs';
 
 function App() {
+  const [currentHeardle, setCurrentHeardle] = useState<HeardleConfig>(heardles[0]);
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [guess, setGuess] = useState('');
   const [revealed, setRevealed] = useState(false);
@@ -96,8 +98,8 @@ function App() {
   };
 
   const nextSong = () => {
-    const randomIndex = Math.floor(Math.random() * songs.length);
-    setCurrentSong(songs[randomIndex]);
+    const randomIndex = Math.floor(Math.random() * currentHeardle.songs.length);
+    setCurrentSong(currentHeardle.songs[randomIndex]);
     setGuess('');
     setRevealed(false);
     setPlaybackStage(0);
@@ -119,7 +121,7 @@ function App() {
     setGuess(value);
     
     if (value.length > 0) {
-      const filtered = songs.filter(song => 
+      const filtered = currentHeardle.songs.filter(song => 
         song.title.toLowerCase().includes(value.toLowerCase())        
       );
       setSuggestions(filtered.slice(0, 5)); // Show top 5 matches
@@ -133,15 +135,37 @@ function App() {
     setSuggestions([]);
   };
 
+  const handleHeardleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newHeardle = heardles.find(h => h.id === e.target.value);
+    if (newHeardle) {
+      setCurrentHeardle(newHeardle);
+      setScore(0);
+      nextSong();
+    }
+  };
+
   useEffect(() => {
     nextSong();
-  }, []);
+  }, [currentHeardle]);
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-4 sm:p-8">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-2">Ragnarok Heardle</h1>
-        <p className="text-gray-400 text-center mb-8">By Lazerth</p>
+        <div className="flex flex-col items-center mb-8">
+          <select
+            value={currentHeardle.id}
+            onChange={handleHeardleChange}
+            className="bg-gray-800 text-white px-4 py-2 rounded mb-4"
+          >
+            {heardles.map(heardle => (
+              <option key={heardle.id} value={heardle.id}>
+                {heardle.title}
+              </option>
+            ))}
+          </select>
+          <h1 className="text-3xl sm:text-4xl font-bold text-center mb-2">{currentHeardle.title}</h1>
+          <p className="text-gray-400 text-center">{currentHeardle.subtitle}</p>
+        </div>
         
         <div className="bg-gray-800 rounded-lg p-4 sm:p-6 mb-6">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">

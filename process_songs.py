@@ -33,8 +33,8 @@ def process_audio(input_path, output_path, max_duration=15000):
 
 def main():
     # Input and output directories
-    input_dir = "BGM"
-    output_dir = "BGM2"
+    input_dir = "DSI"
+    output_dir = "DSI2"
     
     # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
