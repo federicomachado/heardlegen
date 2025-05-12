@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { heardles, HeardleConfig } from './data/heardles';
 import { Song } from './data/songs';
+import { search } from 'fast-fuzzy';
 
 function App() {
   const [currentHeardle, setCurrentHeardle] = useState<HeardleConfig>(() => {
@@ -124,9 +125,13 @@ function App() {
     setGuess(value);
     
     if (value.length > 0) {
-      const filtered = currentHeardle.songs.filter(song => 
-        song.title.toLowerCase().includes(value.toLowerCase())        
-      );
+      const songTitles = currentHeardle.songs.map(song => song.title);
+      // fuzzy search
+      const results = search(value, songTitles, { 
+        threshold: 0.6,
+        returnMatchData: true
+      }).map(match => match.item);
+      const filtered = results.map((result) => currentHeardle.songs.find((song) => song.title === result)!);
       setSuggestions(filtered.slice(0, 5)); // Show top 5 matches
     } else {
       setSuggestions([]);
