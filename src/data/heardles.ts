@@ -8,6 +8,18 @@ export interface HeardleConfig {
   audioFolder: string;
 }
 
+export interface GameState extends Omit<HeardleConfig, 'songs'> {
+  timeStep: number;
+  guesses: Array<string>;
+  currentSongSong: Song;
+}
+
+export interface GameHistory {
+  heardle: string;
+  date: string;
+  game: GameState
+}
+
 // Import all song files
 import { songs as roSongs } from './ro_songs';
 import { songs as dsiSongs } from './dsi_songs';

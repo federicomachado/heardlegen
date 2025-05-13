@@ -1,14 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
-import { heardles, HeardleConfig } from './data/heardles';
+import { heardles, HeardleConfig, GameState, GameHistory } from './data/heardles';
 import { Song } from './data/songs';
+import {Historical} from './components/history';
 
 function App() {
   const [currentHeardle, setCurrentHeardle] = useState<HeardleConfig>(() => {
     const savedHeardle = localStorage.getItem('currentHeardle');
     return savedHeardle ? JSON.parse(savedHeardle) : heardles[0];
   });
-  const [currentSong, setCurrentSong] = useState<Song | null>(null);
+  const [history, setHistory] = useState<GameHistory[]>(() => {
+    const savedHeardle = localStorage.getItem('history');
+    return savedHeardle ? JSON.parse(savedHeardle) : heardles[0];
+  });
+    const getNextSong = (selectedHeardle: HeardleConfig | undefined): Song => {
+    const heardle = selectedHeardle || currentHeardle;
+    const randomIndex = Math.floor(Math.random() * heardle.songs.length);
+    return heardle.songs[randomIndex]
+  }
+  const [currentSong, setCurrentSong] = useState<Song>(()=> getNextSong(currentHeardle));
   const [guess, setGuess] = useState('');
   const [revealed, setRevealed] = useState(false);
   const [score, setScore] = useState(0);
@@ -81,11 +91,60 @@ function App() {
     };
   }, []);
 
+  const getGameState = (): GameState => {
+    const currentGuesses = guess ? [...wrongGuesses, guess] : wrongGuesses
+    return {
+      id: currentHeardle.id,
+      title: currentHeardle.title,
+      subtitle: currentHeardle.subtitle,
+      audioFolder: currentHeardle.audioFolder,
+      timeStep: currentGuesses.length,
+      guesses: currentGuesses,
+      currentSongSong: currentSong,
+    };
+  }
+
+  const loadCurrentHeardle = (): boolean => {
+    const savedHeardle = localStorage.getItem('currentGame');
+    if(!savedHeardle) return false;
+    const parsedHeardle: GameState = JSON.parse(savedHeardle);
+    const heardle = heardles.find(h => h.id === parsedHeardle.id);
+    if (!heardle) return false;
+    setCurrentHeardle(heardle);
+    setPlaybackStage(parsedHeardle.timeStep);
+    setWrongGuesses(Array.from(parsedHeardle.guesses));
+    setCurrentSong(parsedHeardle.currentSongSong);
+    return true
+  }
+
+  const saveCurrentHeardle = () => {
+    const gameState = getGameState();
+    localStorage.setItem('currentGame', JSON.stringify(gameState));
+  }
+  const clearCurrentHeardle = () => {
+    localStorage.removeItem('currentGame');
+  }
+
+  const addResultToHistory = () => {
+    const history = JSON.parse(localStorage.getItem('history') || '[]');
+    const newEntry: GameHistory = {
+      heardle: currentHeardle.id,
+      game: getGameState(),
+      date: new Date().toISOString(),
+    };
+    history.push(newEntry);
+    localStorage.setItem('history', JSON.stringify(history));
+    setHistory(history)
+  }
+
   const handleGuess = (e: React.FormEvent) => {
     e.preventDefault();
+    
     if (currentSong && guess.toLowerCase() === currentSong.title.toLowerCase()) {
       setScore(score + 1);
       setRevealed(true);
+      addResultToHistory();
+      clearCurrentHeardle();
     } else {
       // Wrong guess, advance to next playback stage
       setPlaybackStage(prev => Math.min(prev + 1, playbackDurations.length - 1));
@@ -94,15 +153,17 @@ function App() {
       // Check if max wrong guesses reached
       if (wrongGuesses.length + 1 >= MAX_WRONG_GUESSES) {
         setRevealed(true);
+        addResultToHistory();
       }
+      saveCurrentHeardle()
     }
     setGuess(''); // Clear the search field
     setSuggestions([]); // Clear suggestions
   };
 
-  const nextSong = () => {
-    const randomIndex = Math.floor(Math.random() * currentHeardle.songs.length);
-    setCurrentSong(currentHeardle.songs[randomIndex]);
+  const resetGame = () => {
+    const selectedSong = getNextSong(currentHeardle);
+    setCurrentSong(selectedSong);
     setGuess('');
     setRevealed(false);
     setPlaybackStage(0);
@@ -122,7 +183,6 @@ function App() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setGuess(value);
-    
     if (value.length > 0) {
       const filtered = currentHeardle.songs.filter(song => 
         song.title.toLowerCase().includes(value.toLowerCase())        
@@ -143,14 +203,9 @@ function App() {
     if (selectedHeardle) {
       setCurrentHeardle(selectedHeardle);
       localStorage.setItem('currentHeardle', JSON.stringify(selectedHeardle));
+      localStorage.removeItem('currentGame'); 
       // Reset game state when changing Heardle
-      setCurrentSong(null);
-      setWrongGuesses([]);
-      setGuess('');
-      setSuggestions([]);
-      setRevealed(false);
-      setPlaybackStage(0);
-      setIsPlaying(false);
+      resetGame();
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -158,7 +213,10 @@ function App() {
   };
 
   useEffect(() => {
-    nextSong();
+    if(!loadCurrentHeardle()){
+      resetGame();
+      saveCurrentHeardle();
+    }
   }, [currentHeardle]);
 
   return (
@@ -330,7 +388,7 @@ function App() {
                 <h2 className="text-xl font-bold mb-2">The song was:</h2>
                 <p className="text-lg break-words">{currentSong.title}</p>
                 <button
-                  onClick={nextSong}
+                  onClick={resetGame}
                   className="mt-4 bg-green-500 hover:bg-green-600 px-6 py-2 rounded-lg font-semibold transition-colors w-full sm:w-auto"
                 >
                   Next Song
@@ -339,6 +397,7 @@ function App() {
             </div>
           )}
         </div>
+        <Historical history={history} />
       </div>
       <audio ref={audioRef} />
     </div>
