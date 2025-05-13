@@ -1,26 +1,29 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import './App.css';
-import { heardles, HeardleConfig } from './data/heardles';
+import { games, soundtracks, getCombinedSongs, roSongs, HeardleConfig, SoundtrackConfig } from './data/heardles';
 import { Song } from './data/songs';
 import { search } from 'fast-fuzzy';
 
 function App() {
-  const [currentHeardle, setCurrentHeardle] = useState<HeardleConfig>(() => {
-    const savedHeardle = localStorage.getItem('currentHeardle');
-    return savedHeardle ? JSON.parse(savedHeardle) : heardles[0];
-  });
+  const [selectedGame, setSelectedGame] = useState<HeardleConfig>(games[0]);
+  const [selectedSoundtracks, setSelectedSoundtracks] = useState<string[]>(['ds1']);
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [guess, setGuess] = useState('');
   const [revealed, setRevealed] = useState(false);
   const [score, setScore] = useState(0);
-  const [audio] = useState(new Audio());
   const [playbackStage, setPlaybackStage] = useState(0);
   const [suggestions, setSuggestions] = useState<Song[]>([]);
   const [wrongGuesses, setWrongGuesses] = useState<string[]>([]);
-  const [volume, setVolume] = useState(0.5); // Default volume at 50%
+  const [volume, setVolume] = useState(0.5);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [displayTime, setDisplayTime] = useState(0);
+  const [progressTime, setProgressTime] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const startTimeRef = useRef<number>(0);
+  const animationFrameRef = useRef<number>();
+  const lastTimeRef = useRef<number>(0);
 
   const playbackDurations = [1, 2, 5, 10, 15];
   const MAX_WRONG_GUESSES = 5;
@@ -32,21 +35,107 @@ function App() {
     }
   }, [volume]);
 
+  // Progress bar update using audio events
+  useEffect(() => {
+    if (!audioRef.current) return;
+
+    const audio = audioRef.current;
+    
+    const handleTimeUpdate = () => {
+      if (!isPlaying) return;
+      const currentTime = audio.currentTime - startTimeRef.current;
+      setCurrentTime(currentTime);
+      
+      if (currentTime >= playbackDurations[playbackStage]) {
+        audio.pause();
+        setIsPlaying(false);
+        setCurrentTime(0);
+      }
+    };
+
+    const handlePlay = () => {
+      setIsPlaying(true);
+    };
+
+    const handlePause = () => {
+      setIsPlaying(false);
+    };
+
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+    audio.addEventListener('play', handlePlay);
+    audio.addEventListener('pause', handlePause);
+
+    return () => {
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
+      audio.removeEventListener('play', handlePlay);
+      audio.removeEventListener('pause', handlePause);
+    };
+  }, [isPlaying, playbackStage]);
+
+  // Load random song and set random start time when game or soundtracks change
+  useEffect(() => {
+    if (selectedGame.id === 'ro') {
+      const songs = roSongs;
+      if (songs.length > 0) {
+        const randomIndex = Math.floor(Math.random() * songs.length);
+        setCurrentSong(songs[randomIndex]);
+      }
+    } else {
+      const songs = getCombinedSongs(selectedSoundtracks);
+      if (songs.length > 0) {
+        const randomIndex = Math.floor(Math.random() * songs.length);
+        setCurrentSong(songs[randomIndex]);
+      }
+    }
+  }, [selectedGame, selectedSoundtracks]);
+
+  // Set initial random start time when song changes
+  useEffect(() => {
+    if (currentSong && audioRef.current) {
+      const audio = audioRef.current;
+      audio.src = currentSong.audioUrl;
+
+      const handleMetadata = () => {
+        const duration = audio.duration;
+        const maxPlayTime = playbackDurations[playbackDurations.length - 1]; // Use maximum possible duration
+        const latestPossibleStart = Math.max(0, duration - maxPlayTime);
+        startTimeRef.current = Math.random() * latestPossibleStart;
+        audio.removeEventListener('loadedmetadata', handleMetadata);
+      };
+
+      if (audio.readyState >= 2) {
+        handleMetadata();
+      } else {
+        audio.addEventListener('loadedmetadata', handleMetadata);
+      }
+    }
+  }, [currentSong]);
+
   const playSong = () => {
     if (currentSong && audioRef.current) {
-      audioRef.current.src = currentSong.audioUrl;
-      audioRef.current.currentTime = 0;
-      audioRef.current.volume = volume;
-      audioRef.current.play();
-      setIsPlaying(true);
+      const audio = audioRef.current;
       
-      // Stop after the current stage's duration
+      // Reset to the stored start time
+      audio.currentTime = startTimeRef.current;
+      setCurrentTime(0);
+      audio.volume = volume;
+      
+      // Clear previous timeout
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      // Set new timeout
       timeoutRef.current = setTimeout(() => {
         if (audioRef.current) {
           audioRef.current.pause();
           setIsPlaying(false);
+          setCurrentTime(0);
+          setProgressTime(0); // Resetear la barra de progreso
         }
       }, playbackDurations[playbackStage] * 1000);
+
+      audio.play();
     }
   };
 
@@ -58,26 +147,32 @@ function App() {
           clearTimeout(timeoutRef.current);
         }
       } else {
-        audioRef.current.play();
         // Recalculate remaining time
-        const remainingTime = (playbackDurations[playbackStage] * 1000) - 
-          (audioRef.current.currentTime * 1000);
+        const elapsedTime = currentTime;
+        const remainingTime = (playbackDurations[playbackStage] * 1000) - (elapsedTime * 1000);
+        
         timeoutRef.current = setTimeout(() => {
           if (audioRef.current) {
             audioRef.current.pause();
             setIsPlaying(false);
+            setCurrentTime(0);
+            setProgressTime(0); // Resetear la barra de progreso
           }
         }, remainingTime);
+
+        audioRef.current.play();
       }
-      setIsPlaying(!isPlaying);
     }
   };
 
-  // Cleanup timeout on unmount
+  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
+      }
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
       }
     };
   }, []);
@@ -102,8 +197,11 @@ function App() {
   };
 
   const nextSong = () => {
-    const randomIndex = Math.floor(Math.random() * currentHeardle.songs.length);
-    setCurrentSong(currentHeardle.songs[randomIndex]);
+    const songs = getCombinedSongs(selectedSoundtracks);
+    if (songs.length > 0) {
+      const randomIndex = Math.floor(Math.random() * songs.length);
+      setCurrentSong(songs[randomIndex]);
+    }
     setGuess('');
     setRevealed(false);
     setPlaybackStage(0);
@@ -125,6 +223,7 @@ function App() {
     setGuess(value);
     
     if (value.length > 0) {
+      const currentHeardle = selectedGame.id === 'ro' ? roSongs : getCombinedSongs(selectedSoundtracks);
       const songTitles = currentHeardle.songs.map(song => song.title);
       // fuzzy search
       const results = search(value, songTitles, { 
@@ -133,6 +232,7 @@ function App() {
       }).map(match => match.item);
       const filtered = results.map((result) => currentHeardle.songs.find((song) => song.title === result)!);
       setSuggestions(filtered.slice(0, 5)); // Show top 5 matches
+
     } else {
       setSuggestions([]);
     }
@@ -143,12 +243,18 @@ function App() {
     setSuggestions([]);
   };
 
-  const handleHeardleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedHeardle = heardles.find(h => h.id === e.target.value);
-    if (selectedHeardle) {
-      setCurrentHeardle(selectedHeardle);
-      localStorage.setItem('currentHeardle', JSON.stringify(selectedHeardle));
-      // Reset game state when changing Heardle
+  const handleGameChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const game = games.find(g => g.id === e.target.value);
+    if (game) {
+      setSelectedGame(game);
+      // If we change to Ragnarok, clear soundtrack selections
+      if (game.id === 'ro') {
+        setSelectedSoundtracks([]);
+      } else if (game.id === 'fromsoft' && selectedSoundtracks.length === 0) {
+        // If we change to FromSoft and nothing is selected, select DS1 by default
+        setSelectedSoundtracks(['ds1']);
+      }
+      // Reset game state
       setCurrentSong(null);
       setWrongGuesses([]);
       setGuess('');
@@ -162,27 +268,128 @@ function App() {
     }
   };
 
+  const handleSoundtrackToggle = (soundtrackId: string) => {
+    setSelectedSoundtracks(prev => {
+      const isSelected = prev.includes(soundtrackId);
+      if (isSelected) {
+        // Don't allow deselecting if it's the last selected soundtrack
+        if (prev.length === 1) return prev;
+        return prev.filter(id => id !== soundtrackId);
+      } else {
+        return [...prev, soundtrackId];
+      }
+    });
+  };
+
   useEffect(() => {
-    nextSong();
-  }, [currentHeardle]);
+    let rafId: number;
+    const animate = () => {
+      if (audioRef.current && isPlaying) {
+        const currentProgress = audioRef.current.currentTime - startTimeRef.current;
+        if (currentProgress >= playbackDurations[playbackStage]) {
+          setProgressTime(0);
+          setCurrentTime(0);
+          setIsPlaying(false);
+          if (audioRef.current) {
+            audioRef.current.pause();
+          }
+          return;
+        }
+        setProgressTime(currentProgress);
+        rafId = requestAnimationFrame(animate);
+      }
+    };
+    if (isPlaying) {
+      rafId = requestAnimationFrame(animate);
+    } else {
+      setProgressTime(0);
+    }
+    return () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+    };
+  }, [isPlaying, currentSong, playbackStage]);
+
+  const filteredSuggestions = useMemo(() => {
+    const searchTerm = guess.toLowerCase();
+    if (!searchTerm) return [];
+
+    // Filtrar las canciones según la sección actual
+    const currentSectionSongs = selectedGame.id === 'ro' ? roSongs : getCombinedSongs(selectedSoundtracks);
+
+    return currentSectionSongs
+      .filter(song => 
+        song.title.toLowerCase().includes(searchTerm)
+      )
+      .slice(0, 5);
+  }, [guess, selectedGame.id, selectedSoundtracks]);
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-4 sm:p-8">
       <div className="max-w-2xl mx-auto">
         <div className="flex flex-col items-center mb-8">
-          <select
-            value={currentHeardle.id}
-            onChange={handleHeardleChange}
-            className="bg-gray-800 text-white px-4 py-2 rounded mb-4"
-          >
-            {heardles.map(heardle => (
-              <option key={heardle.id} value={heardle.id}>
-                {heardle.title}
-              </option>
-            ))}
-          </select>
-          <h1 className="text-3xl sm:text-4xl font-bold text-center mb-2">{currentHeardle.title}</h1>
-          <p className="text-gray-400 text-center">{currentHeardle.subtitle}</p>
+          {/* Game Selector */}
+          <div className="w-full max-w-md mb-6">
+            <label className="block text-sm font-medium text-gray-400 mb-2">
+              Select Game
+            </label>
+            <select
+              value={selectedGame.id}
+              onChange={handleGameChange}
+              className="w-full bg-gray-800 text-white px-4 py-2 rounded"
+            >
+              {games.map(game => (
+                <option key={game.id} value={game.id}>
+                  {game.title}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Soundtracks Selector - Solo mostrar si FromSoft está seleccionado */}
+          {selectedGame.id === 'fromsoft' && (
+            <div className="w-full max-w-md mb-6">
+              <label className="block text-sm font-medium text-gray-400 mb-2">
+                Select Soundtracks
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {soundtracks.map(soundtrack => (
+                  <label
+                    key={soundtrack.id}
+                    className={`flex items-center p-3 rounded cursor-pointer transition-colors ${
+                      selectedSoundtracks.includes(soundtrack.id)
+                        ? 'bg-blue-600 hover:bg-blue-700'
+                        : 'bg-gray-800 hover:bg-gray-700'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={selectedSoundtracks.includes(soundtrack.id)}
+                      onChange={() => handleSoundtrackToggle(soundtrack.id)}
+                      className="sr-only"
+                    />
+                    <div className="ml-2">
+                      <div className="font-medium">{soundtrack.title}</div>
+                      <div className="text-sm text-gray-400">{soundtrack.subtitle}</div>
+                    </div>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <h1 className="text-3xl sm:text-4xl font-bold text-center mb-2">
+            {selectedGame.title} Heardle
+          </h1>
+          <p className="text-gray-400 text-center mb-2">
+            {selectedGame.id === 'fromsoft' 
+              ? selectedSoundtracks.length > 1
+                ? `Mixed Mode: ${selectedSoundtracks.length} Soundtracks`
+                : soundtracks.find(s => s.id === selectedSoundtracks[0])?.subtitle
+              : selectedGame.subtitle
+            }
+          </p>
         </div>
         
         <div className="bg-gray-800 rounded-lg p-4 sm:p-6 mb-6">
@@ -253,18 +460,33 @@ function App() {
             <div>
               <div className="flex justify-between text-sm text-gray-400 mb-1">
                 <span>Time Available</span>
-                <span>{playbackDurations[playbackStage]}s</span>
+                <span>{Math.min(playbackDurations[playbackStage], Number(currentTime.toFixed(1)))}s / {playbackDurations[playbackStage]}s</span>
               </div>
               <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-blue-500 transition-all duration-300"
-                  style={{ width: `${((playbackStage + 1) / playbackDurations.length) * 100}%` }}
+                  className="h-full bg-blue-500 transform-gpu"
+                  style={{
+                    transform: `scaleX(${Math.max(0, Math.min(1, progressTime / playbackDurations[playbackStage]))})`,
+                    transformOrigin: 'left'
+                  }}
                 />
               </div>
               <div className="flex justify-between text-xs text-gray-500 mt-1">
-                {playbackDurations.map((duration, index) => (
-                  <span key={index}>{duration}s</span>
-                ))}
+                <span>0s</span>
+                {Array.from({ length: Math.floor(playbackDurations[playbackStage]) }).map((_, index) => {
+                  // Solo mostrar marcas cada segundo si la duración es corta (≤5s)
+                  // o cada 2-5 segundos si la duración es más larga
+                  const interval = playbackDurations[playbackStage] <= 5 ? 1 : 
+                                  playbackDurations[playbackStage] <= 10 ? 2 : 5;
+                  
+                  if ((index + 1) % interval === 0 && index + 1 < playbackDurations[playbackStage]) {
+                    return (
+                      <span key={index + 1}>{index + 1}s</span>
+                    );
+                  }
+                  return null;
+                })}
+                <span>{playbackDurations[playbackStage]}s</span>
               </div>
             </div>
 
@@ -288,15 +510,25 @@ function App() {
             </div>
           </div>
 
-          <div className="mb-4">
-            <div className="flex gap-2 flex-wrap">
-              {wrongGuesses.map((guess, index) => (
-                <span key={index} className="bg-red-900 text-red-200 px-2 py-1 rounded text-sm">
-                  {guess}
-                </span>
-              ))}
+          {/* Wrong Guesses Display */}
+          {wrongGuesses.length > 0 && (
+            <div className="mb-6 bg-gray-700/50 p-4 rounded-lg">
+              <h3 className="text-lg font-semibold mb-3 text-gray-300">Last Guesses:</h3>
+              <div className="space-y-2">
+                {wrongGuesses.map((guess, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <span className="text-gray-400 font-mono">{index + 1}.</span>
+                    <span className="bg-red-900/60 text-red-100 px-3 py-1.5 rounded-md text-sm font-medium flex-grow">
+                      {guess}
+                    </span>
+                    <span className="text-gray-400 text-sm">
+                      {playbackDurations[Math.min(index, playbackDurations.length - 1)]}s
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           <form onSubmit={handleGuess} className="mb-4 relative">
             <input
