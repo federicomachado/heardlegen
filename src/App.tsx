@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { heardles, HeardleConfig, GameState, GameHistory } from './data/heardles';
 import { Song } from './data/songs';
-import {Historical} from './components/history';
+import {Historical} from './components/history/history';
 
 function App() {
   const [currentHeardle, setCurrentHeardle] = useState<HeardleConfig>(() => {
@@ -10,8 +10,8 @@ function App() {
     return savedHeardle ? JSON.parse(savedHeardle) : heardles[0];
   });
   const [history, setHistory] = useState<GameHistory[]>(() => {
-    const savedHeardle = localStorage.getItem('history');
-    return savedHeardle ? JSON.parse(savedHeardle) : heardles[0];
+    const history = localStorage.getItem('history');
+    return history ? JSON.parse(history) : [];
   });
     const getNextSong = (selectedHeardle: HeardleConfig | undefined): Song => {
     const heardle = selectedHeardle || currentHeardle;
@@ -161,8 +161,8 @@ function App() {
     setSuggestions([]); // Clear suggestions
   };
 
-  const resetGame = () => {
-    const selectedSong = getNextSong(currentHeardle);
+  const resetGame = (heardle? : HeardleConfig) => {
+    const selectedSong = getNextSong(heardle? heardle : currentHeardle);
     setCurrentSong(selectedSong);
     setGuess('');
     setRevealed(false);
@@ -205,7 +205,7 @@ function App() {
       localStorage.setItem('currentHeardle', JSON.stringify(selectedHeardle));
       localStorage.removeItem('currentGame'); 
       // Reset game state when changing Heardle
-      resetGame();
+      resetGame(selectedHeardle);
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -388,7 +388,7 @@ function App() {
                 <h2 className="text-xl font-bold mb-2">The song was:</h2>
                 <p className="text-lg break-words">{currentSong.title}</p>
                 <button
-                  onClick={resetGame}
+                  onClick={()=>resetGame(currentHeardle)}
                   className="mt-4 bg-green-500 hover:bg-green-600 px-6 py-2 rounded-lg font-semibold transition-colors w-full sm:w-auto"
                 >
                   Next Song
