@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import './App.css';
 import { games, soundtracks, getCombinedSongs, roSongs, HeardleConfig, SoundtrackConfig } from './data/heardles';
 import { Song } from './data/songs';
@@ -222,11 +222,11 @@ function App() {
     setGuess(value);
     
     if (value.length > 0) {
-      const songs = getCombinedSongs(selectedSoundtracks);
-      const filtered = songs.filter(song => 
-        song.title.toLowerCase().includes(value.toLowerCase())        
-      );
-      setSuggestions(filtered.slice(0, 5)); // Show top 5 matches
+      const currentSectionSongs = selectedGame.id === 'ro' ? roSongs : getCombinedSongs(selectedSoundtracks);
+      const filtered = currentSectionSongs
+        .filter(song => song.title.toLowerCase().includes(value.toLowerCase()))
+        .slice(0, 5);
+      setSuggestions(filtered);
     } else {
       setSuggestions([]);
     }
@@ -304,6 +304,20 @@ function App() {
       }
     };
   }, [isPlaying, currentSong, playbackStage]);
+
+  const filteredSuggestions = useMemo(() => {
+    const searchTerm = guess.toLowerCase();
+    if (!searchTerm) return [];
+
+    // Filtrar las canciones según la sección actual
+    const currentSectionSongs = selectedGame.id === 'ro' ? roSongs : getCombinedSongs(selectedSoundtracks);
+
+    return currentSectionSongs
+      .filter(song => 
+        song.title.toLowerCase().includes(searchTerm)
+      )
+      .slice(0, 5);
+  }, [guess, selectedGame.id, selectedSoundtracks]);
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-4 sm:p-8">
