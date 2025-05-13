@@ -224,13 +224,13 @@ function App() {
     
     if (value.length > 0) {
       const currentHeardle = selectedGame.id === 'ro' ? roSongs : getCombinedSongs(selectedSoundtracks);
-      const songTitles = currentHeardle.songs.map(song => song.title);
+      const songTitles = currentHeardle.map(song => song.title);
       // fuzzy search
       const results = search(value, songTitles, { 
         threshold: 0.6,
         returnMatchData: true
       }).map(match => match.item);
-      const filtered = results.map((result) => currentHeardle.songs.find((song) => song.title === result)!);
+      const filtered = results.map((result) => currentHeardle.find((song) => song.title === result)!);
       setSuggestions(filtered.slice(0, 5)); // Show top 5 matches
 
     } else {
