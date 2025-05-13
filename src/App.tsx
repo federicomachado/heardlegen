@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import './App.css';
 import { games, soundtracks, getCombinedSongs, roSongs, HeardleConfig, SoundtrackConfig } from './data/heardles';
 import { Song } from './data/songs';
+import { search } from 'fast-fuzzy';
 
 function App() {
   const [selectedGame, setSelectedGame] = useState<HeardleConfig>(games[0]);
@@ -222,11 +223,16 @@ function App() {
     setGuess(value);
     
     if (value.length > 0) {
-      const currentSectionSongs = selectedGame.id === 'ro' ? roSongs : getCombinedSongs(selectedSoundtracks);
-      const filtered = currentSectionSongs
-        .filter(song => song.title.toLowerCase().includes(value.toLowerCase()))
-        .slice(0, 5);
-      setSuggestions(filtered);
+      const currentHeardle = selectedGame.id === 'ro' ? roSongs : getCombinedSongs(selectedSoundtracks);
+      const songTitles = currentHeardle.songs.map(song => song.title);
+      // fuzzy search
+      const results = search(value, songTitles, { 
+        threshold: 0.6,
+        returnMatchData: true
+      }).map(match => match.item);
+      const filtered = results.map((result) => currentHeardle.songs.find((song) => song.title === result)!);
+      setSuggestions(filtered.slice(0, 5)); // Show top 5 matches
+
     } else {
       setSuggestions([]);
     }
