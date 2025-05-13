@@ -125,12 +125,13 @@ function App() {
     localStorage.removeItem('currentGame');
   }
 
-  const addResultToHistory = () => {
+  const addResultToHistory = (didUserWon: boolean) => {
     const history = JSON.parse(localStorage.getItem('history') || '[]');
     const newEntry: GameHistory = {
       heardle: currentHeardle.id,
       game: getGameState(),
       date: new Date().toISOString(),
+      win: didUserWon
     };
     history.push(newEntry);
     localStorage.setItem('history', JSON.stringify(history));
@@ -143,7 +144,7 @@ function App() {
     if (currentSong && guess.toLowerCase() === currentSong.title.toLowerCase()) {
       setScore(score + 1);
       setRevealed(true);
-      addResultToHistory();
+      addResultToHistory(true);
       clearCurrentHeardle();
     } else {
       // Wrong guess, advance to next playback stage
@@ -153,7 +154,7 @@ function App() {
       // Check if max wrong guesses reached
       if (wrongGuesses.length + 1 >= MAX_WRONG_GUESSES) {
         setRevealed(true);
-        addResultToHistory();
+        addResultToHistory(false);
       }
       saveCurrentHeardle()
     }

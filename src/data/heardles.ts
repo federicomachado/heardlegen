@@ -17,7 +17,8 @@ export interface GameState extends Omit<HeardleConfig, 'songs'> {
 export interface GameHistory {
   heardle: string;
   date: string;
-  game: GameState
+  game: GameState;
+  win: boolean;
 }
 
 // Import all song files

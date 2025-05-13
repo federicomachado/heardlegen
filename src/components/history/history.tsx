@@ -21,7 +21,7 @@ export function Historical({ history = [] }: { history: GameHistory[] }) {
       {history.map((game) => (
         <div key={game.date} className="bg-gray-700 m-2 rounded-lg px-2 py-1 game">
           <div className="flex flex-row justify-between items-center">
-            <h3><b>{getHeardles(game.heardle)}</b></h3><p><b>{formatDate(game.date)}</b></p></div>
+            <h3 className={game.win? "text-green-500": "text-red-500"}><b>{getHeardles(game.heardle)}</b></h3><p><b>{formatDate(game.date)}</b></p></div>
           <div>
             <div>Guesses:</div>
             <ol className="px-3">
