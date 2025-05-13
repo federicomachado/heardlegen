@@ -54,7 +54,7 @@ export const soundtracks: SoundtrackConfig[] = [
     songs: ds1Songs,
     audioFolder: '/DSI2/'
   },
-  {
+ /*  {
     id: 'ds3',
     title: 'Dark Souls III',
     subtitle: 'The Fire Fades Edition',
@@ -67,12 +67,12 @@ export const soundtracks: SoundtrackConfig[] = [
     subtitle: 'The Lands Between',
     songs: erSongs,
     audioFolder: '/ER/'
-  }
+  } */
 ];
 
 // Función para obtener las canciones combinadas según las selecciones
 export const getCombinedSongs = (selectedSoundtracks: string[]): Song[] => {
-  const selectedSongs = selectedSoundtracks.map(id => 
+  const selectedSongs = selectedSoundtracks.map(id =>
     soundtracks.find(s => s.id === id)?.songs || []
   );
   return combineSongs(selectedSongs);
