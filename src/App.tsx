@@ -12,13 +12,13 @@ function App() {
   const [revealed, setRevealed] = useState(false);
   const [score, setScore] = useState(0);
   const [playbackStage, setPlaybackStage] = useState(0);
-  const [suggestions, setSuggestions] = useState<Song[]>([]);
   const [wrongGuesses, setWrongGuesses] = useState<string[]>([]);
   const [volume, setVolume] = useState(0.5);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [displayTime, setDisplayTime] = useState(0);
   const [progressTime, setProgressTime] = useState(0);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const startTimeRef = useRef<number>(0);
@@ -177,6 +177,17 @@ function App() {
     };
   }, []);
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setGuess(value);
+    setShowSuggestions(value.length > 0);
+  };
+
+  const selectSuggestion = (song: Song) => {
+    setGuess(song.title);
+    setShowSuggestions(false);
+  };
+
   const handleGuess = (e: React.FormEvent) => {
     e.preventDefault();
     if (currentSong && guess.toLowerCase() === currentSong.title.toLowerCase()) {
@@ -193,7 +204,7 @@ function App() {
       }
     }
     setGuess(''); // Clear the search field
-    setSuggestions([]); // Clear suggestions
+    setShowSuggestions(false);
   };
 
   const nextSong = () => {
@@ -203,6 +214,7 @@ function App() {
       setCurrentSong(songs[randomIndex]);
     }
     setGuess('');
+    setShowSuggestions(false);
     setRevealed(false);
     setPlaybackStage(0);
     setWrongGuesses([]);
@@ -216,31 +228,6 @@ function App() {
     if (wrongGuesses.length + 1 >= MAX_WRONG_GUESSES) {
       setRevealed(true);
     }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setGuess(value);
-    
-    if (value.length > 0) {
-      const currentHeardle = selectedGame.id === 'ro' ? roSongs : getCombinedSongs(selectedSoundtracks);
-      const songTitles = currentHeardle.map(song => song.title);
-      // fuzzy search
-      const results = search(value, songTitles, { 
-        threshold: 0.6,
-        returnMatchData: true
-      }).map(match => match.item);
-      const filtered = results.map((result) => currentHeardle.find((song) => song.title === result)!);
-      setSuggestions(filtered.slice(0, 5)); // Show top 5 matches
-
-    } else {
-      setSuggestions([]);
-    }
-  };
-
-  const selectSuggestion = (song: Song) => {
-    setGuess(song.title);
-    setSuggestions([]);
   };
 
   const handleGameChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -258,7 +245,7 @@ function App() {
       setCurrentSong(null);
       setWrongGuesses([]);
       setGuess('');
-      setSuggestions([]);
+      setShowSuggestions(false);
       setRevealed(false);
       setPlaybackStage(0);
       setIsPlaying(false);
@@ -318,12 +305,24 @@ function App() {
     // Filtrar las canciones según la sección actual
     const currentSectionSongs = selectedGame.id === 'ro' ? roSongs : getCombinedSongs(selectedSoundtracks);
 
-    return currentSectionSongs
-      .filter(song => 
-        song.title.toLowerCase().includes(searchTerm)
+    // Filtrar las canciones que ya han sido adivinadas incorrectamente
+    const availableSongs = currentSectionSongs.filter(song => 
+      !wrongGuesses.some(wrongGuess => 
+        wrongGuess.toLowerCase() === song.title.toLowerCase()
       )
-      .slice(0, 5);
-  }, [guess, selectedGame.id, selectedSoundtracks]);
+    );
+
+    // Usar búsqueda difusa para mejores resultados
+    const songTitles = availableSongs.map(song => song.title);
+    const results = search(searchTerm, songTitles, { 
+      threshold: 0.6,
+      returnMatchData: true
+    }).map(match => match.item);
+    
+    return results
+      .map(title => availableSongs.find(song => song.title === title)!)
+      .slice(0, 5); // Show top 5 matches
+  }, [guess, selectedGame.id, selectedSoundtracks, wrongGuesses]);
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-4 sm:p-8">
@@ -549,14 +548,17 @@ function App() {
               placeholder="Enter song title..."
               className="w-full p-2 rounded bg-gray-700 text-white"
               disabled={revealed}
+              onFocus={() => setShowSuggestions(guess.length > 0)}
+              onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
             />
-            {suggestions.length > 0 && (
+            {showSuggestions && filteredSuggestions.length > 0 && (
               <div className="absolute w-full bg-gray-700 rounded mt-1 z-10 max-h-60 overflow-y-auto">
-                {suggestions.map((song, index) => (
+                {filteredSuggestions.map((song, index) => (
                   <div
                     key={index}
                     className="p-2 hover:bg-gray-600 cursor-pointer"
                     onClick={() => selectSuggestion(song)}
+                    onMouseDown={(e) => e.preventDefault()} // Prevenir el blur del input
                   >
                     {song.title}
                   </div>
