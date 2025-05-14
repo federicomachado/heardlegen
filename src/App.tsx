@@ -563,16 +563,27 @@ function App() {
                 <span>Tries Remaining</span>
                 <span>{MAX_WRONG_GUESSES - wrongGuesses.length}</span>
               </div>
-              <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-red-500 transition-all duration-300"
-                  style={{ width: `${(wrongGuesses.length / MAX_WRONG_GUESSES) * 100}%` }}
-                />
-              </div>
-              <div className="flex justify-between text-xs text-gray-500 mt-1">
-                {Array.from({ length: MAX_WRONG_GUESSES }).map((_, index) => (
-                  <span key={index}>Try {index + 1}</span>
-                ))}
+              <div className="space-y-2">
+                {/* Barra de progreso */}
+                <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-red-500 transition-all duration-300"
+                    style={{ width: `${(wrongGuesses.length / MAX_WRONG_GUESSES) * 100}%` }}
+                  />
+                </div>
+                {/* Marcadores y números */}
+                <div className="relative">
+                  <div className="grid" style={{ gridTemplateColumns: `repeat(${MAX_WRONG_GUESSES}, 1fr)` }}>
+                    {Array.from({ length: MAX_WRONG_GUESSES }).map((_, index) => (
+                      <div key={index} className="flex flex-col items-center">
+                        <div className="w-0.5 h-4 bg-gray-400" />
+                        <span className={`text-sm font-medium mt-1 ${index < wrongGuesses.length ? 'text-red-400' : 'text-gray-400'}`}>
+                          Try {index + 1}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
