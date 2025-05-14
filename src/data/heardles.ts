@@ -15,6 +15,19 @@ export interface HeardleConfig {
   type: 'game' | 'soundtrack';
 }
 
+export interface GameState extends Pick<HeardleConfig, 'id'> {
+  timeStep: number;
+  guesses: Array<string>;
+  currentSong: Song;
+}
+
+export interface GameHistory {
+  heardle: string;
+  date: string;
+  game: GameState;
+  win: boolean;
+}
+
 // Import all song files
 import { songs } from './ro_songs';
 export const roSongs = songs;
@@ -53,6 +66,13 @@ export const soundtracks: SoundtrackConfig[] = [
     subtitle: 'By Drumsetto',
     songs: ds1Songs,
     audioFolder: '/DSI2/'
+  },
+  {
+    id: 'ro',
+    title: 'Ragnarok Heardle',
+    subtitle: 'By Lazerth',
+    songs: roSongs,
+    audioFolder: '/RO/'
   },
  /*  {
     id: 'ds3',
