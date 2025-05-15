@@ -67,13 +67,13 @@ export const soundtracks: SoundtrackConfig[] = [
     songs: ds1Songs,
     audioFolder: '/DSI2/'
   },
-  {
+/*   {
     id: 'ro',
     title: 'Ragnarok Heardle',
     subtitle: 'By Lazerth',
     songs: roSongs,
     audioFolder: '/RO/'
-  },
+  }, */
  /*  {
     id: 'ds3',
     title: 'Dark Souls III',
