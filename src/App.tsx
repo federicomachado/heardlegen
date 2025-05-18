@@ -1,13 +1,25 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import './App.css';
-import { games, soundtracks, getCombinedSongs, roSongs, HeardleConfig, SoundtrackConfig } from './data/heardles';
+import { games, soundtracks, getCombinedSongs, roSongs, HeardleConfig, GameState, GameHistory } from './data/heardles';
 import { Song } from './data/songs';
 import { search } from 'fast-fuzzy';
+import { GAME_STATE, HISTORY } from './constants/local.constants';
+import { Historical } from './components/history/history';
 
 function App() {
   const [selectedGame, setSelectedGame] = useState<HeardleConfig>(games[0]);
-  const [selectedSoundtracks, setSelectedSoundtracks] = useState<string[]>(['ds1']);
-  const [currentSong, setCurrentSong] = useState<Song | null>(null);
+  const [selectedSoundtracks, setSelectedSoundtracks] = useState<string[]>(['ro']);
+  const [history, setHistory] = useState<GameHistory[]>(() => {
+    const history = localStorage.getItem(HISTORY);
+    return history ? JSON.parse(history) : [];
+  });
+  const getNextSong = (): Song => {
+    const songs = getCombinedSongs(selectedSoundtracks);
+    if (!songs.length) console.assert(false, "No songs available");
+    const randomIndex = Math.floor(Math.random() * songs.length);
+    return songs[randomIndex];
+  }
+  const [currentSong, setCurrentSong] = useState<Song>(getNextSong());
   const [guess, setGuess] = useState('');
   const [revealed, setRevealed] = useState(false);
   const [score, setScore] = useState(0);
@@ -40,12 +52,12 @@ function App() {
     if (!audioRef.current) return;
 
     const audio = audioRef.current;
-    
+
     const handleTimeUpdate = () => {
       if (!isPlaying) return;
       const currentTime = audio.currentTime - startTimeRef.current;
       setCurrentTime(currentTime);
-      
+
       if (currentTime >= playbackDurations[playbackStage]) {
         audio.pause();
         setIsPlaying(false);
@@ -114,12 +126,12 @@ function App() {
   const playSong = () => {
     if (currentSong && audioRef.current) {
       const audio = audioRef.current;
-      
+
       // Reset to the stored start time
       audio.currentTime = startTimeRef.current;
       setCurrentTime(0);
       audio.volume = volume;
-      
+
       // Clear previous timeout
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -150,7 +162,6 @@ function App() {
         // Recalculate remaining time
         const elapsedTime = currentTime;
         const remainingTime = (playbackDurations[playbackStage] * 1000) - (elapsedTime * 1000);
-        
         timeoutRef.current = setTimeout(() => {
           if (audioRef.current) {
             audioRef.current.pause();
@@ -167,6 +178,10 @@ function App() {
 
   // Cleanup on unmount
   useEffect(() => {
+    if (!loadCurrentHeardle()) {
+      resetHeardly();
+      saveGameState();
+    }
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -188,42 +203,95 @@ function App() {
     setShowSuggestions(false);
   };
 
+  const loadCurrentHeardle = (): boolean => {
+    const savedHeardle = localStorage.getItem(GAME_STATE);
+    if (!savedHeardle) return false;
+    const parsedHeardle: GameState = JSON.parse(savedHeardle);
+    const heardle = games.find(h => h.id === parsedHeardle.id);
+    if (!heardle) return false;
+    setSelectedGame(heardle);
+    console.log(parsedHeardle.timeStep)
+    setPlaybackStage(parsedHeardle.timeStep);
+    setWrongGuesses(Array.from(parsedHeardle.guesses));
+    setCurrentSong(parsedHeardle.currentSong);
+    return true
+  }
+
+  const getGameState = (): GameState => {
+    const currentGuesses = guess ? [...wrongGuesses, guess] : wrongGuesses
+
+    return {
+      id: selectedGame.id,
+      timeStep: currentGuesses.length,
+      guesses: currentGuesses,
+      currentSong: currentSong,
+    }
+  }
+
+  const saveGameState = () => {
+    localStorage.setItem(GAME_STATE, JSON.stringify(getGameState()));
+  }
+
+  const clearGameState = () => {
+    localStorage.removeItem(GAME_STATE);
+  }
+
+  const addToHistory = (win: boolean) => {
+    const history = localStorage.getItem(HISTORY);
+    const parsedHistory: GameHistory[] = history ? JSON.parse(history) : [];
+    const newGameState =  {
+      heardle: selectedGame.id,
+      game: getGameState(),
+      date: new Date().toISOString(),
+      win: win
+    };
+    const newHistory = [...parsedHistory, newGameState];
+    localStorage.setItem(HISTORY, JSON.stringify(newHistory));
+    setHistory(newHistory)
+  }
+
   const handleGuess = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (currentSong && guess.toLowerCase() === currentSong.title.toLowerCase()) {
       setScore(score + 1);
       setRevealed(true);
+      addToHistory(true);
+      clearGameState();
     } else {
       // Wrong guess, advance to next playback stage
+
       setPlaybackStage(prev => Math.min(prev + 1, playbackDurations.length - 1));
       setWrongGuesses(prev => [...prev, guess]);
-      
+      saveGameState();
       // Check if max wrong guesses reached
       if (wrongGuesses.length + 1 >= MAX_WRONG_GUESSES) {
         setRevealed(true);
+        addToHistory(false);
+        clearGameState();
       }
     }
     setGuess(''); // Clear the search field
     setShowSuggestions(false);
   };
 
-  const nextSong = () => {
-    const songs = getCombinedSongs(selectedSoundtracks);
-    if (songs.length > 0) {
-      const randomIndex = Math.floor(Math.random() * songs.length);
-      setCurrentSong(songs[randomIndex]);
-    }
+
+  const resetHeardly = () => {
+    const song = getNextSong();
+    setCurrentSong(song);
     setGuess('');
     setShowSuggestions(false);
     setRevealed(false);
     setPlaybackStage(0);
     setWrongGuesses([]);
+    clearGameState();
   };
 
   const handleSkip = () => {
+
     setPlaybackStage(prev => Math.min(prev + 1, playbackDurations.length - 1));
     setWrongGuesses(prev => [...prev, "Skip"]);
-    
+
     // Check if max wrong guesses reached
     if (wrongGuesses.length + 1 >= MAX_WRONG_GUESSES) {
       setRevealed(true);
@@ -242,7 +310,7 @@ function App() {
         setSelectedSoundtracks(['ds1']);
       }
       // Reset game state
-      setCurrentSong(null);
+      setCurrentSong(getNextSong());
       setWrongGuesses([]);
       setGuess('');
       setShowSuggestions(false);
@@ -356,11 +424,10 @@ function App() {
                 {soundtracks.map(soundtrack => (
                   <label
                     key={soundtrack.id}
-                    className={`flex items-center p-3 rounded cursor-pointer transition-colors ${
-                      selectedSoundtracks.includes(soundtrack.id)
-                        ? 'bg-blue-600 hover:bg-blue-700'
-                        : 'bg-gray-800 hover:bg-gray-700'
-                    }`}
+                    className={`flex items-center p-3 rounded cursor-pointer transition-colors ${selectedSoundtracks.includes(soundtrack.id)
+                      ? 'bg-blue-600 hover:bg-blue-700'
+                      : 'bg-gray-800 hover:bg-gray-700'
+                      }`}
                   >
                     <input
                       type="checkbox"
@@ -382,7 +449,7 @@ function App() {
             {selectedGame.title} Heardle
           </h1>
           <p className="text-gray-400 text-center mb-2">
-            {selectedGame.id === 'fromsoft' 
+            {selectedGame.id === 'fromsoft'
               ? selectedSoundtracks.length > 1
                 ? `Mixed Mode: ${selectedSoundtracks.length} Soundtracks`
                 : soundtracks.find(s => s.id === selectedSoundtracks[0])?.subtitle
@@ -390,24 +457,24 @@ function App() {
             }
           </p>
         </div>
-        
+
         <div className="bg-gray-800 rounded-lg p-4 sm:p-6 mb-6">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
             <span className="text-xl">Score: {score}</span>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">
               {/* Volume Control */}
               <div className="flex items-center gap-2 w-full sm:w-auto">
-                <svg 
-                  className="w-5 h-5 text-gray-400" 
-                  fill="none" 
-                  stroke="currentColor" 
+                <svg
+                  className="w-5 h-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m2.828-9.9a9 9 0 012.728-2.728" 
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m2.828-9.9a9 9 0 012.728-2.728"
                   />
                 </svg>
                 <input
@@ -462,7 +529,7 @@ function App() {
                 <span>{Math.min(playbackDurations[playbackStage], Number(currentTime.toFixed(1)))}s / {playbackDurations[playbackStage]}s</span>
               </div>
               <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                <div 
+                <div
                   className="h-full bg-blue-500 transform-gpu"
                   style={{
                     transform: `scaleX(${Math.max(0, Math.min(1, progressTime / playbackDurations[playbackStage]))})`,
@@ -475,9 +542,9 @@ function App() {
                 {Array.from({ length: Math.floor(playbackDurations[playbackStage]) }).map((_, index) => {
                   // Solo mostrar marcas cada segundo si la duración es corta (≤5s)
                   // o cada 2-5 segundos si la duración es más larga
-                  const interval = playbackDurations[playbackStage] <= 5 ? 1 : 
-                                  playbackDurations[playbackStage] <= 10 ? 2 : 5;
-                  
+                  const interval = playbackDurations[playbackStage] <= 5 ? 1 :
+                    playbackDurations[playbackStage] <= 10 ? 2 : 5;
+
                   if ((index + 1) % interval === 0 && index + 1 < playbackDurations[playbackStage]) {
                     return (
                       <span key={index + 1}>{index + 1}s</span>
@@ -580,7 +647,7 @@ function App() {
                 <h2 className="text-xl font-bold mb-2">The song was:</h2>
                 <p className="text-lg break-words">{currentSong.title}</p>
                 <button
-                  onClick={nextSong}
+                  onClick={resetHeardly}
                   className="mt-4 bg-green-500 hover:bg-green-600 px-6 py-2 rounded-lg font-semibold transition-colors w-full sm:w-auto"
                 >
                   Next Song
@@ -589,6 +656,7 @@ function App() {
             </div>
           )}
         </div>
+         <Historical history={history} />
       </div>
       <audio ref={audioRef} />
     </div>
